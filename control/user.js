@@ -2,7 +2,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const UserModel = require("../models/user")
 const encrypt = require('../util/encrypt')
 
-const { jwtSecret } = require('../Config/config');
+const { jwtSecret } = require('../config/config');
 
 class User {
   // 用户注册(添加)

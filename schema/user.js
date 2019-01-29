@@ -1,5 +1,5 @@
 const { Schema } = require("./config");
-const { imagePath } = require('../Config/config');
+const { imagePath } = require('../config/config');
 const UserSchema = new Schema({
   username: String,
   password: String,

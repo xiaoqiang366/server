@@ -8,7 +8,7 @@ const jwt = require('koa-jwt'); // 用于路由权限控制
 const {
   jwtSecret,
   serverPort
-} = require('./Config/config');
+} = require('./config/config');
 const router = require('./routers/router');
 const errorHandle = require('./middlewares/errorHandle'); //错误处理
 const sendHandle = require('./middlewares/sendHandle'); // 数据返回统一处理

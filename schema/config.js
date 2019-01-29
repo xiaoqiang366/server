@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { mongoPort } = require('../Config/config');
+const { mongoPort } = require('../config/config');
 
 const db = mongoose.createConnection(`mongodb://localhost:${mongoPort}/seller`, {
   useNewUrlParser: true
