@@ -1,4 +1,4 @@
-const { db } = require('../Schema/config')
+const { db } = require('../schema/config')
 
 const CategorySchema = require('../Schema/category')
 const Category = db.model("category", CategorySchema)

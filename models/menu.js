@@ -1,4 +1,4 @@
-const { db } = require('../Schema/config')
+const { db } = require('../schema/config')
 
 const MenuSchema = require('../Schema/menu')
 const Menu = db.model("menus", MenuSchema)
