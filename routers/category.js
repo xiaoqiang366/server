@@ -3,7 +3,7 @@
  * @Author: Edwin
  * @Date: 2019-01-24 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-01-26 16:10:02
+ * @Last Modified time: 2019-01-29 23:20:27
  */
 const Router = require('koa-router')();
 const Category = require('../control/category');
@@ -99,7 +99,7 @@ Router.post("/delete", Category.delete)
  * @api {post} /category/update 分类修改
  * @apiName categoryUpdate
  * @apiGroup Category
- * @apiDescription
+ * @apiDescription 分类修改
  * @apiParam (params) {String} id 分类id
  * @apiParam (params) {String} name 分类名称
  * @apiParam (params) {String} [desc='暂无描述'] 分类描述

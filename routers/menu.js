@@ -3,7 +3,7 @@
  * @Author: Edwin
  * @Date: 2019-01-24 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-01-29 20:56:10
+ * @Last Modified time: 2019-01-29 23:25:53
  */
 const Router = require('koa-router')();
 const Menu = require('../control/menu');
@@ -45,7 +45,7 @@ const Menu = require('../control/menu');
 Router.post("/add", Menu.add)
 
 /**
- * @api {get} /menu/allList 获取所有菜品
+ * @api {get} /menu/allList?pageNum=2&pageSize=2 获取所有菜品
  * @apiName menuList
  * @apiGroup Menu
  * @apiDescription 所有菜品查询
@@ -53,36 +53,38 @@ Router.post("/add", Menu.add)
  * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
  * @apiSuccessExample 成功
  * {
-    "code": 1,
-    "data": {
-        "list": [
-            {
-                "id": "5c4c210617ae8adc2e2494c8",
-                "cid": "5c4c1f34db0db1d9cfad0e7f",
-                "name": "红烧牛肉面",
-                "desc": "暂无描述",
-                "price": "18",
-                "updateTime": "2019-01-26T08:57:42.680Z"
-            },
-            {
-                "id": "5c4c212017ae8adc2e2494c9",
-                "cid": "5c4c1f34db0db1d9cfad0e7f",
-                "name": "青椒肉丝",
-                "desc": "暂无描述",
-                "price": "18",
-                "updateTime": "2019-01-26T08:58:08.562Z"
-            }
-        ],
-        "total": 3
-    },
-    "msg": "请求成功"
-}
+        "code": 1,
+        "data": {
+            "list": [
+                {
+                    "_id": "5c504afc94bcc35c1b9fe838",
+                    "name": "清炒土豆丝",
+                    "cid": "5c4faaa8a1068c20dd01feb7",
+                    "price": "60",
+                    "desc": "暂无描述",
+                    "img": "http://127.0.0.1:3030/img/tudou.jpg",
+                    "updateTime": "2019-01-29T12:45:48.847Z"
+                },
+                {
+                    "_id": "5c504b4c94bcc35c1b9fe839",
+                    "name": "辣的跳",
+                    "cid": "5c4faaa8a1068c20dd01feb7",
+                    "price": "30",
+                    "desc": "特别辣",
+                    "img": "http://127.0.0.1:3030/img/lalala.jpg",
+                    "updateTime": "2019-01-29T12:47:08.459Z"
+                }
+            ],
+            "totalPage": 4
+        },
+        "msg": "请求成功"
+    }
  *
  */
 Router.get("/allList", Menu.allList);
 
 /**
- * @api {get} /menu/getListByCid?cid=5c4c218017ae8adc2e2494ca 根据cid获取菜品
+ * @api {get} /menu/getListByCid?cid=5c4faaa8a1068c20dd01feb7&pageNum=1&pageSize=2 根据cid获取菜品
  * @apiName getListByCid
  * @apiGroup Menu
  * @apiDescription 所有菜品查询
@@ -90,30 +92,32 @@ Router.get("/allList", Menu.allList);
  * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
  * @apiSuccessExample 成功
  * {
-    "code": 1,
-    "data": {
-        "list": [
-            {
-                "id": "5c4c210617ae8adc2e2494c8",
-                "cid": "5c4c1f34db0db1d9cfad0e7f",
-                "name": "红烧牛肉面",
-                "desc": "暂无描述",
-                "price": "18",
-                "updateTime": "2019-01-26T08:57:42.680Z"
-            },
-            {
-                "id": "5c4c212017ae8adc2e2494c9",
-                "cid": "5c4c1f34db0db1d9cfad0e7f",
-                "name": "青椒肉丝",
-                "desc": "暂无描述",
-                "price": "18",
-                "updateTime": "2019-01-26T08:58:08.562Z"
-            }
-        ],
-        "total": 3
-    },
-    "msg": "请求成功"
-}
+        "code": 1,
+        "data": {
+            "list": [
+                {
+                    "_id": "5c504ab394bcc35c1b9fe836",
+                    "name": "香辣牛肉面1===",
+                    "cid": "5c4faaa8a1068c20dd01feb7",
+                    "price": "198",
+                    "desc": "暂无描述",
+                    "img": "http://127.0.0.1:3030/img/default.jpg",
+                    "updateTime": "2019-01-29T13:26:14.224Z"
+                },
+                {
+                    "_id": "5c504afc94bcc35c1b9fe838",
+                    "name": "清炒土豆丝",
+                    "cid": "5c4faaa8a1068c20dd01feb7",
+                    "price": "60",
+                    "desc": "暂无描述",
+                    "img": "http://127.0.0.1:3030/img/tudou.jpg",
+                    "updateTime": "2019-01-29T12:45:48.847Z"
+                }
+            ],
+            "totalPage": 3
+        },
+        "msg": "请求成功"
+    }
  *
  */
 Router.get("/getListByCid", Menu.getListByCid);
@@ -142,7 +146,7 @@ Router.post("/delete", Menu.delete)
  * @apiParam (params) {String} name 名称
  * @apiParam (params) {String} desc 描述
  * @apiParam (params) {String} price 价格
- * @apiParam (params) {String} img 图片
+ * @apiParam (params) {String} [img = '/img/default.jpg'] 图片
  *
  * @apiHeaderExample {json} Header:
  * {
@@ -153,13 +157,13 @@ Router.post("/delete", Menu.delete)
  * {
         "code": 1,
         "data": {
-            "id": "5c4c212017ae8adc2e2494c9",
-            "name": "香辣牛肉面1",
-            "cid": "5c4c1f34db0db1d9cfad0e7f",
+            "id": "5c504ab394bcc35c1b9fe836",
+            "name": "香辣牛肉面1===",
+            "cid": "5c4faaa8a1068c20dd01feb7",
             "price": "198",
             "desc": "暂无描述",
-            "img": "/avatar/noodles.jpg",
-            "updateTime": "2019-01-26T09:59:45.299Z"
+            "img": "http://127.0.0.1:3030/img/default.jpg",
+            "updateTime": "2019-01-29T15:25:43.175Z"
         },
         "msg": "更新成功"
     }
