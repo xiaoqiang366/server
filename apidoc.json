@@ -1,0 +1,9 @@
+{
+  "name": "API文档",
+  "version": "0.0.1",
+  "description": "API文档",
+  "apidoc": {
+    "title": "点餐API",
+    "url" : "http://116.62.147.91:3030/apidoc"
+  }
+}
