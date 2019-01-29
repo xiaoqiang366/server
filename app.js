@@ -62,7 +62,7 @@ function init() {
   // })
 
   const { db } = require('./schema/config')
-  const UserSchema = require('./Schema/user')
+  const UserSchema = require('./schema/user')
   const encrypt = require('./util/encrypt')
   const User = db.model('users', UserSchema)
   User.find({ username: "admin" }).then(data => {
