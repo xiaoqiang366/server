@@ -17,9 +17,9 @@ class User {
       if (checkUser !== null) {
         return ctx.sendError('000002', '该用户名已存在');
       }
-      const user = new userModel({
+      const user = new UserModel({
         username: data.username,
-        password: encrypt(password),
+        password: encrypt(data.password),
       })
       const result = await user.save();
       return result !== null ? ctx.send(null, '注册成功') : ctx.sendError('000002', '注册失败');

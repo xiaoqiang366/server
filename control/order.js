@@ -3,12 +3,15 @@ let orderNum = 1
 class Order {
     // 顾客端新增订单
     async add(ctx) {
+        console.log(ctx.request.body)
+        console.log(typeof ctx.request.body)
         const {
             tableNum,
             list,
             amount
         } = ctx.request.body;
-        if (menuList.length === 0 || tableNum) return ctx.sendError(-1, '参数错误');
+        console.log(list)
+        if (list.length === 0 || tableNum) return ctx.sendError(-1, '参数错误');
         const model = new OrderModel({
             orderNum,
             tableNum,
