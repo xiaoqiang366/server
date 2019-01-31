@@ -15,3 +15,17 @@ mongo
 ps -ef|grep mongo
 kill [pid]
 ```
+
+# 远程连接mongodb
+
+https://segmentfault.com/q/1010000007235344
+
+
+# 
+
+
+[mongodb-org] 
+name=MongoDB Repository 
+baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/4.0/x86_64/
+gpgcheck=0 
+enabled=1

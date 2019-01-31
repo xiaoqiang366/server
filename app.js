@@ -29,9 +29,9 @@ app
       /^\/avatar/i,
       /^\/img/i,
       /^\/?$/i,
-      /^\/system\/?$/i,
-      /^\/upload\/?$/i,
+      /^\/system/i,
       /^\/upload/i,
+      /^\/table\/list/i,
     ]
   })) // token处理
   .use(logger()) // 日志
