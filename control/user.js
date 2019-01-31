@@ -67,8 +67,8 @@ class User {
   // 用户查询
   async inquire(ctx) {
     let {
-      pageNum,
-      pageSize,
+      pageNum = 1,
+      pageSize = 10,
     } = ctx.query;
 
     const maxNum = await UserModel.estimatedDocumentCount((err, num) =>
