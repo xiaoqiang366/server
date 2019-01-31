@@ -3,15 +3,12 @@ let orderNum = 1
 class Order {
     // 顾客端新增订单
     async add(ctx) {
-        console.log(ctx.request.body)
-        console.log(typeof ctx.request.body)
         const {
             tableNum,
             list,
             amount
         } = ctx.request.body;
-        console.log(list)
-        if (list.length === 0 || tableNum) return ctx.sendError(-1, '参数错误');
+        if (list.length === 0 || !tableNum) return ctx.sendError(-1, '参数错误');
         const model = new OrderModel({
             orderNum,
             tableNum,
@@ -27,6 +24,8 @@ class Order {
         const result = await model.save();
         if (result) {
             // socket推送后台管理
+            console.log(result)
+            let status = result.status
             ctx.send({
                 orderNum,
                 tableNum,
