@@ -14,111 +14,49 @@ const Order = require('../control/order');
  * @apiName orderAdd
  * @apiGroup Order
  * @apiDescription 添加订单
- * @apiParam (params) {String} num 桌号
- * @apiHeaderExample {json} Header:
  * {
- *    "Authorition": "xxxxxxxxxxxx"
- *  }
+  "tableNum": "5c507b5cc212780b0f940951",
+  "list": [
+	{
+		"menuItem":"5c50038be7877122a8f2cc5b", // 菜单_id
+		"count":2 // 数量
+	}
+  ], 
+  "amount":20
+}
+ * @apiParam (params) {String} tableNum 桌号_id
+ * @apiParam (params) {Array} list 点餐列表
+ * @apiParam (params) {Number} amount 点餐金额
  *
  * @apiSuccessExample 添加成功
  * {
-      "code": 1,
-      "data": {
-          "categoryId": "5c4be6f9751906b9606218c8"
-      }
-  }
- * @apiErrorExample {json} 未登录
-  {
-      "code": -1,
-      "errMsg": "请先登录"
-  }
-* @apiErrorExample {json} 重复添加
-  {
-      "code": 0,
-      "errMsg": "当前桌号已存在, 请勿重复添加"
-  }
+    "code": 1,
+    "data": {
+        "orderNum": 3,
+        "tableNum": "5c507b5cc212780b0f940951",
+        "status": 0,
+        "list": [
+            {
+                "menuItem": "5c50038be7877122a8f2cc5b",
+                "count": 2
+            }
+        ],
+        "amount": 20
+    },
+    "msg": "请求成功"
+}
  *
  */
 Router.post("/add", Order.add)
 
-/**
- * @api {get} /table/list 桌号查询
- * @apiName tableList
- * @apiGroup Table
- * @apiDescription 所有桌号列表查询
- * @apiSuccessExample 添加成功
- * {
-      "code": 1,
-      "data": {
-          "list": [
-              {
-                  "id": "5c4be1ba45b939b6a4f557b4",
-                  "num": 1,
-              },
-              {
-                  "id": "5c4be1ba45b939b6a4f557b5",
-                  "num": 2,
-              },
-          ],
-          "total": 2
-      }
-  }
- *
- */
+
 // Router.get("/clist", Order.currentList);
 // Router.get("/hlist", Order.historyList);
 
-/**
- * @api {post} /table/delete 桌号删除
- * @apiName tableDelete
- * @apiGroup Table
- * @apiDescription 桌号删除
- * @apiParam (params) {String} id 桌号id
- * @apiSuccessExample 删除成功
- * {
-        "code": 1,
-        "data": "删除成功",
-        "msg": "请求成功"
-    }
- *
- * @apiErrorExample 桌号不存在
- * {
-        "code": 0,
-        "errMsg": "当前桌号不存在"
-    }
- */
+
 // Router.post("/delete", Order.delete)
 
-/**
- * @api {post} /table/update 桌号修改
- * @apiName tableUpdate
- * @apiGroup Table
- * @apiDescription
- * @apiParam (params) {String} id 桌号id
- * @apiHeaderExample {json} Header:
- * {
- *    "Authorition": "xxxxxxxxxxxx"
- *  }
- *
- * @apiSuccessExample 成功
- * {
-      "code": 1,
-      "data": {
-          "tableId": "5c4be6f9751906b9606218c8"
-      }
-  }
- * @apiErrorExample {json} 未登录
-  {
-      "code": -1,
-      "errMsg": "请先登录"
-  }
-* @apiErrorExample {json} 添加失败
-  {
-      "code": 0,
-      "errMsg": "当前桌号已存在"
-  }
- *
- */
+
 Router.post("/update", Order.update)
 
 module.exports = Router;
