@@ -64,3 +64,4 @@ public/apidoc/
 public/upload/
 .vscode/
 yarn-lock*
+database/
