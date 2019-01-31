@@ -65,8 +65,8 @@ Router.post("/add", Order.add)
   }
  *
  */
-Router.get("/clist", Order.currentList);
-Router.get("/hlist", Order.historyList);
+// Router.get("/clist", Order.currentList);
+// Router.get("/hlist", Order.historyList);
 
 /**
  * @api {post} /table/delete 桌号删除
@@ -87,7 +87,7 @@ Router.get("/hlist", Order.historyList);
         "errMsg": "当前桌号不存在"
     }
  */
-Router.post("/delete", Order.delete)
+// Router.post("/delete", Order.delete)
 
 /**
  * @api {post} /table/update 桌号修改
