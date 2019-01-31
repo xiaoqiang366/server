@@ -4,7 +4,8 @@ module.exports = {
   mongoPort: 27040, // mongodb端口
   jwtSecret: 'seller-secret', // 连接端口
 
-  imagePath: `http://${getIp()}:3030`
+  // imagePath: `http://${getIp()}:3030`
+  imagePath: `http://116.62.147.91:3030`
 }
 
 function getIp() {
