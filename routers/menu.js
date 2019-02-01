@@ -3,7 +3,7 @@
  * @Author: Edwin
  * @Date: 2019-01-24 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-01-29 23:25:53
+ * @Last Modified time: 2019-02-01 19:39:54
  */
 const Router = require('koa-router')();
 const Menu = require('../control/menu');
@@ -123,7 +123,7 @@ Router.get("/allList", Menu.allList);
 Router.get("/getListByCid", Menu.getListByCid);
 
 /**
- * @api {post} /menu/list 菜品删除
+ * @api {post} /menu/delete 菜品删除
  * @apiName MenuDelete
  * @apiGroup Menu
  * @apiDescription 菜品删除
