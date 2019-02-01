@@ -37,8 +37,17 @@ class User {
         username,
         password,
         id,
+        avatar
       } = ctx.request.body;
-      await UserModel.updateOne({ _id: id }, { username, password: encrypt(password) });
+      if (username == 'admin') {
+        return ctx.sendError(0, '管理员账户不能修改');
+      }
+      if (avatar) {
+        await UserModel.updateOne({ _id: id }, { username, password: encrypt(password), avatar });
+      } else {
+        await UserModel.updateOne({ _id: id }, { username, password: encrypt(password) });
+      }
+
       ctx.send('修改成功')
     } else {
       return ctx.sendError(0, '没有权限');
