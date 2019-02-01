@@ -3,7 +3,7 @@
  * @Author: Edwin
  * @Date: 2019-01-28 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-01-26 16:10:02
+ * @Last Modified time: 2019-02-01 12:53:29
  */
 const Router = require('koa-router')();
 const Table = require('../control/table');
@@ -14,7 +14,7 @@ const Table = require('../control/table');
  * @apiName tableAdd
  * @apiGroup Table
  * @apiDescription 添加桌号
- * @apiParam (params) {String} num 桌号
+ * @apiParam (params) {String} id 桌号id
  * @apiHeaderExample {json} Header:
  * {
  *    "Authorition": "xxxxxxxxxxxx"
@@ -92,7 +92,7 @@ Router.post("/delete", Table.delete)
  * @api {post} /table/update 桌号修改
  * @apiName tableUpdate
  * @apiGroup Table
- * @apiDescription
+ * @apiDescription 桌号修改
  * @apiParam (params) {String} id 桌号id
  * @apiHeaderExample {json} Header:
  * {

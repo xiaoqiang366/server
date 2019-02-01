@@ -3,7 +3,7 @@
  * @Author: zhf
  * @Date: 2019-01-29 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-01 12:48:22
+ * @Last Modified time: 2019-02-01 12:50:20
  */
 const Router = require('koa-router')();
 const Order = require('../control/order');
@@ -16,15 +16,15 @@ const Order = require('../control/order');
  * @apiDescription 添加订单
  * @apiParamExample {json} 请求参数:
  * {
-        "tableNum": "5c507b5cc212780b0f940951",
-        "list": [
-            {
-                "menuItem":"5c50038be7877122a8f2cc5b", // 菜单_id
-                "count":2 // 数量
-            }
-        ],
-        "amount":20
-    }
+    "tableNum": "5c507b5cc212780b0f940951",
+    "list": [
+        {
+            "menuItem":"5c50038be7877122a8f2cc5b", // 菜单_id
+            "count":2 // 数量
+        }
+    ],
+    "amount":20
+}
  * @apiParam (params) {String} tableNum 桌号_id
  * @apiParam (params) {Array} list 点餐列表
  * @apiParam (params) {Number} amount 点餐金额
