@@ -6,7 +6,7 @@ const image = require('../control/image');
  * @Author: Edwin
  * @Date: 2019-01-27 15:19:31
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-01 17:16:22
+ * @Last Modified time: 2019-02-01 17:26:53
  */
 const fs = require('fs');
 const path = require('path');
@@ -69,7 +69,7 @@ Router.post('/upload', async (ctx, next) => {
  * @api {get} /image/query?group=default&pageNum=1&pageSize=10 图片分组查询
  * @apiName query
  * @apiGroup Image
- * @apiParam (params) {String} [group = '默认分组'] 图片分组名称
+ * @apiParam (params) {String} group = 'default' 图片分组名称
  * @apiParam (params) {Number} [pageNum = 1]  页数
  * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
  * @apiSuccessExample Success:
