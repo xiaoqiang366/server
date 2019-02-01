@@ -32,6 +32,7 @@ app
       /^\/?$/i,
       /^\/system/i,
       /^\/upload/i,
+      /^\/image\/upload/i,
       /^\/table\/list/i,
       /^\/order\/add/i,
     ]
