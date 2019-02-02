@@ -59,7 +59,9 @@ class Menu {
     let {
       pageNum = 1, pageSize = 10
     } = ctx.query;
-    const maxNum = await MenuModel.find().count();
+    const maxNum = await MenuModel.estimatedDocumentCount((err, num) =>
+      err ? console.log(err) : num
+    )
     pageNum--;
     pageNum = parseInt(pageNum)
     pageSize = parseInt(pageSize)
