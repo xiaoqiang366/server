@@ -24,6 +24,7 @@ class Order {
         const result = await model.save();
         if (result) {
             // socket推送后台管理
+            io.emit('NEW_ORDER', result)
             console.log(result)
             let status = result.status
             ctx.send({

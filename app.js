@@ -12,8 +12,11 @@ const {
 const router = require('./routers/router');
 const errorHandle = require('./middlewares/errorHandle'); //错误处理
 const sendHandle = require('./middlewares/sendHandle'); // 数据返回统一处理
-
 const app = new Koa();
+const server = require('http').createServer(app.callback());
+const io = require('socket.io')(server);
+global.io = io
+
 app
   .use(sendHandle()) // 数据返回统一处理
   .use(errorHandle)
@@ -36,6 +39,7 @@ app
       /^\/image\/query/i,
       /^\/table\/list/i,
       /^\/order\/add/i,
+      /^\/socket.io/i,
     ]
   })) // token处理
   .use(logger()) // 日志
@@ -48,10 +52,21 @@ app
   .use(static(path.join(__dirname, './public')))
   .use(router.routes()).use(router.allowedMethods())
 
-app.listen(serverPort, () => {
+
+server.listen(serverPort, () => {
   console.log(`Server is running at http://127.0.0.1:${serverPort}`);
   init();
 })
+
+const onconnection = (socket) => {
+  console.log('启动了Socket.io');
+
+  socket.on('disconnect', () => {
+
+
+  });
+};
+io.on('connection', onconnection);
 
 // 系统初始化操作
 // 1. 创建一个超级管理员用户 admin/admin
