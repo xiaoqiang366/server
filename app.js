@@ -4,6 +4,7 @@ const logger = require('koa-logger');
 const body = require('koa-body');
 const path = require('path');
 const jwt = require('koa-jwt'); // 用于路由权限控制
+const cors = require('koa2-cors');
 
 const {
   jwtSecret,
@@ -52,7 +53,16 @@ app
   .use(static(path.join(__dirname, './public')))
   .use(router.routes()).use(router.allowedMethods())
 
-
+app.use(cors({
+  origin: function () {
+    return 'http://116.62.147.91';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept', "token"],
+}));
 server.listen(serverPort, () => {
   console.log(`Server is running at http://127.0.0.1:${serverPort}`);
   init();
