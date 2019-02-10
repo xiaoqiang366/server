@@ -11,7 +11,7 @@ const image = require('../control/image');
 const fs = require('fs');
 const path = require('path');
 const Router = require('koa-router')();
-const { imagePath } = require('../config/config');
+
 
 /**
  * @api {post} /image/upload 图片上传
@@ -55,7 +55,7 @@ Router.post('/upload', async (ctx, next) => {
   reader.pipe(upStream); // 可读流通过管道写入可写流
 
   return await image.upload(ctx, {
-    url: `${imagePath}/upload/${fileName}`,
+    url: `/upload/${fileName}`,
     group,
     name
   });

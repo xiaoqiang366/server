@@ -50,9 +50,48 @@ const Order = require('../control/order');
  */
 Router.post("/add", Order.add)
 
-
+/**
+ * @api {get} /order/clist?pageNum=2&pageSize=2 获取所有菜品
+ * @apiName OrderList
+ * @apiGroup Order
+ * @apiDescription 所有正在进行中订单查询
+ * @apiParam (params) {Number} [pageNum = 1]  页数
+ * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
+ * @apiSuccessExample 成功
+ * {
+        "code": 1,
+        "data": {
+            "list": [
+               
+            ],
+            "totalPage": 4
+        },
+        "msg": "请求成功"
+    }
+ *
+ */
 Router.get("/clist", Order.clist);
-// Router.get("/hlist", Order.historyList);
+/**
+ * @api {get} /order/hlist?pageNum=2&pageSize=2 获取所有菜品
+ * @apiName OrderList
+ * @apiGroup Order
+ * @apiDescription 所有历史订单查询
+ * @apiParam (params) {Number} [pageNum = 1]  页数
+ * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
+ * @apiSuccessExample 成功
+ * {
+        "code": 1,
+        "data": {
+            "list": [
+               
+            ],
+            "totalPage": 4
+        },
+        "msg": "请求成功"
+    }
+ *
+ */
+Router.get("/hlist", Order.hlist);
 
 
 // Router.post("/delete", Order.delete)

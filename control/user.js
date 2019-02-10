@@ -178,7 +178,7 @@ class User {
       };
       return ctx.send(result);
     } else {
-      return ctx.sendError('000002');
+      return ctx.send(null, "请先登录");
     }
   }
 

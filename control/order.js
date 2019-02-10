@@ -1,41 +1,79 @@
 const OrderModel = require("../models/order");
-let orderNum = 1
+const MenuModel = require('../models/menu');
+const OrderListModel = require('../models/orderList');
+var EventEmitter = require('events').EventEmitter;
+var event = new EventEmitter();
+let num = 0
+let oldOrderTime = new Date().getTime()
 class Order {
     // 顾客端新增订单
+    FillZero(p) {
+        return new Array(3 - (p + '').length + 1).join('0') + p;
+    }
     async add(ctx) {
+        num++
+        let orderNum = new Date().getTime()
+        if (num >= 1000) {
+            num = 1
+        }
+        if (orderNum - oldOrderTime > 4 * 1000 * 60 * 60) {
+            oldOrderTime = orderNum
+            num = 1
+        }
+        orderNum += new Order().FillZero(num)
+
         const {
             tableNum,
-            list,
-            amount
+            list
         } = ctx.request.body;
         if (list.length === 0 || !tableNum) return ctx.sendError(-1, '参数错误');
-        const model = new OrderModel({
-            orderNum,
-            tableNum,
-            list,
-            amount,
-            realAmount: amount
-        });
-        if (orderNum <= 100) {
-            orderNum++
-        } else {
-            orderNum = 1
+        var arr = []
+        if (list.length > 0) {
+            let arrlist = new Array(...list)
+            let len = list.length
+            let count = 0
+            arrlist.forEach(item => {
+                let res = {}
+                MenuModel.findById(item.menuItem, (err, data) => {
+                    if (err) {
+                        console.log('err');
+                        console.log(err);
+                    } else {
+                        res.menuDetail = data
+                        count++
+                        if (count == len) {
+                            console.log('emit some_event')
+                            event.emit('some_event')
+                        }
+                    }
+                })
+                res.count = item.count
+                arr.push(res)
+            });
         }
-        const result = await model.save();
-        if (result) {
-            // socket推送后台管理
-            io.emit('NEW_ORDER', result)
-            let status = result.status
-            ctx.send({
+        event.on('some_event', () => {
+            console.log('on some_event')
+            let amount = 0
+            arr.forEach((item) => {
+                amount += item.count * item.menuDetail.price
+            })
+            const model = new OrderModel({
                 orderNum,
                 tableNum,
-                status,
-                list,
-                amount
+                list: arr,
+                amount,
+                realAmount: amount
             });
-        } else {
-            ctx.sendError(0, '点单失败')
-        }
+            model.save(function (err, data) {
+                if (err) {
+                    return ctx.sendError(0, '点单失败')
+                } else {
+                    io.emit('NEW_ORDER', data)
+                }
+            });
+
+        });
+        ctx.send('操作成功')
     }
     // 后台管理更新订单状态
     async update(ctx) {
@@ -66,10 +104,8 @@ class Order {
         pageNum--;
         pageNum = parseInt(pageNum)
         pageSize = parseInt(pageSize)
-        const maxNum = await OrderModel.estimatedDocumentCount((err, num) =>
-            err ? console.log(err) : num
-        )
-        const result = await OrderModel.find({ status: { $lt: 5 } }).populate({
+        const maxNum = await OrderModel.find({ status: { $lt: 5 } }).countDocuments(true)
+        const result = await OrderModel.find({ status: { $lt: 5 } }).sort('-created').populate({
             path: 'tableNum menuItem',
             select: '_id num name price'
         }).skip(pageNum * pageSize)
@@ -87,10 +123,8 @@ class Order {
         pageNum--;
         pageNum = parseInt(pageNum)
         pageSize = parseInt(pageSize)
-        const maxNum = await OrderModel.estimatedDocumentCount((err, num) =>
-            err ? console.log(err) : num
-        )
-        const result = await OrderModel.find({ status: { $eq: 5 } }).populate({
+        const maxNum = await OrderModel.countDocuments({ status: { $eq: 5 } })
+        const result = await OrderModel.find({ status: { $eq: 5 } }).sort('-created').populate({
             path: 'tableNum',
             select: '_id num'
         }).skip(pageNum * pageSize)
