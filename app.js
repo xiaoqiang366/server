@@ -56,12 +56,7 @@ app
 app.use(cors({
   origin: function () {
     return 'http://116.62.147.91';
-  },
-  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-  maxAge: 5,
-  credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept', "token"],
+  }
 }));
 server.listen(serverPort, () => {
   console.log(`Server is running at http://127.0.0.1:${serverPort}`);
