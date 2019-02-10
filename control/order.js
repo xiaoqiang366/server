@@ -25,7 +25,6 @@ class Order {
         if (result) {
             // socket推送后台管理
             io.emit('NEW_ORDER', result)
-            console.log(result)
             let status = result.status
             ctx.send({
                 orderNum,
@@ -36,7 +35,6 @@ class Order {
             });
         } else {
             ctx.sendError(0, '点单失败')
-            ctx.sendError(-2, '服务器错误');
         }
     }
     // 后台管理更新订单状态
@@ -45,7 +43,7 @@ class Order {
             orderId, // 订单id
             status // 订单状态
         } = ctx.request.body;
-        await OrderModel.update({
+        await OrderModel.updateOne({
             _id: orderId
         }, {
                 $set: {
@@ -62,10 +60,45 @@ class Order {
     }
     // 后台管理获取未完成的订单列表
     async clist(ctx) {
-
+        let {
+            pageNum = 1, pageSize = 10
+        } = ctx.query;
+        pageNum--;
+        pageNum = parseInt(pageNum)
+        pageSize = parseInt(pageSize)
+        const maxNum = await OrderModel.estimatedDocumentCount((err, num) =>
+            err ? console.log(err) : num
+        )
+        const result = await OrderModel.find({ status: { $lt: 5 } }).populate({
+            path: 'tableNum menuItem',
+            select: '_id num name price'
+        }).skip(pageNum * pageSize)
+            .limit(pageSize) // mongoose 用于连表查询
+        ctx.send({
+            list: result,
+            totalPage: maxNum
+        })
     }
     // 后台管理获取已完成的历史订单列表
     async hlist(ctx) {
+        let {
+            pageNum = 1, pageSize = 10
+        } = ctx.query;
+        pageNum--;
+        pageNum = parseInt(pageNum)
+        pageSize = parseInt(pageSize)
+        const maxNum = await OrderModel.estimatedDocumentCount((err, num) =>
+            err ? console.log(err) : num
+        )
+        const result = await OrderModel.find({ status: { $eq: 5 } }).populate({
+            path: 'tableNum',
+            select: '_id num'
+        }).skip(pageNum * pageSize)
+            .limit(pageSize) // mongoose 用于连表查询
+        ctx.send({
+            list: result,
+            totalPage: maxNum
+        })
 
     }
     // 后台管理删除订单

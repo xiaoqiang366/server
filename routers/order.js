@@ -51,7 +51,7 @@ const Order = require('../control/order');
 Router.post("/add", Order.add)
 
 
-// Router.get("/clist", Order.currentList);
+Router.get("/clist", Order.clist);
 // Router.get("/hlist", Order.historyList);
 
 
