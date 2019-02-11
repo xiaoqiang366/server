@@ -54,6 +54,28 @@ class Menu {
     }
   }
 
+  // 手机端获取所有菜列表
+  async list(ctx, next) {
+
+    await MenuModel.find().populate({
+      path: 'cid',
+      select: 'name'
+    })
+      .then(data => {
+        return ctx.send({
+          list: data
+        })
+      })
+      .catch(err => {
+        if (err && !err.reason) {
+          return ctx.send({
+            list: []
+          })
+        }
+        return ctx.sendError('000002');
+      })
+  }
+
   // 获取所有菜列表
   async allList(ctx, next) {
     let {

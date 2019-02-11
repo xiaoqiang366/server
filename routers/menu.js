@@ -82,6 +82,7 @@ Router.post("/add", Menu.add)
  *
  */
 Router.get("/allList", Menu.allList);
+Router.get("/list", Menu.list);
 
 /**
  * @api {get} /menu/getListByCid?cid=5c4faaa8a1068c20dd01feb7&pageNum=1&pageSize=2 根据cid获取菜品

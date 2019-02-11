@@ -106,8 +106,8 @@ class Order {
         pageSize = parseInt(pageSize)
         const maxNum = await OrderModel.find({ status: { $lt: 5 } }).countDocuments(true)
         const result = await OrderModel.find({ status: { $lt: 5 } }).sort('-created').populate({
-            path: 'tableNum menuItem',
-            select: '_id num name price'
+            path: 'tableNum',
+            select: '_id num'
         }).skip(pageNum * pageSize)
             .limit(pageSize) // mongoose 用于连表查询
         ctx.send({

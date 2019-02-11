@@ -7,7 +7,7 @@ const MenuSchema = new Schema({
   name: String,
   cid: {
     type: ObjectId,
-    ref: "categories"
+    ref: "category"
   },
   price: String,
   desc: String,
