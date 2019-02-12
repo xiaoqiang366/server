@@ -64,14 +64,13 @@ class Order {
                 amount,
                 realAmount: amount
             });
-            model.save(function (err, data) {
+            model.save((err, data) => {
                 if (err) {
                     return ctx.sendError(0, '点单失败')
                 } else {
                     io.emit('NEW_ORDER', data)
                 }
             });
-
         });
         ctx.send('操作成功')
     }
@@ -95,6 +94,20 @@ class Order {
                     ctx.send('操作成功')
                 }
             })
+    }
+    // 后台管理获取未完成的订单列表
+    async list(ctx) {
+        let {
+            id
+        } = ctx.query;
+        const result = await OrderModel.find({ tableNum: id, status: { $lt: 5 } }).sort('-created').populate({
+            path: 'tableNum',
+            select: '_id num'
+        })
+        ctx.send({
+            list: result,
+            totalPage: maxNum
+        })
     }
     // 后台管理获取未完成的订单列表
     async clist(ctx) {

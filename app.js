@@ -55,9 +55,7 @@ app
   .use(router.routes()).use(router.allowedMethods())
 
 app.use(cors({
-  origin: function () {
-    return 'http://116.62.147.91';
-  },
+  origin: 'http://116.62.147.91',
   maxAge: 5,
   credentials: true,
   allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
