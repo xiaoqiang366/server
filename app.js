@@ -17,7 +17,16 @@ const app = new Koa();
 const server = require('http').createServer(app.callback());
 const io = require('socket.io')(server);
 global.io = io
-
+app.use(cors({
+  origin: function (ctx) {
+    return 'http://116.62.147.91';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept', "token"],
+}));
 app
   .use(sendHandle()) // 数据返回统一处理
   .use(errorHandle)
@@ -54,12 +63,6 @@ app
   .use(static(path.join(__dirname, './public')))
   .use(router.routes()).use(router.allowedMethods())
 
-app.use(cors({
-  origin: 'http://116.62.147.91',
-  maxAge: 5,
-  credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-}));
 server.listen(serverPort, () => {
   console.log(`Server is running at http://127.0.0.1:${serverPort}`);
   init();
