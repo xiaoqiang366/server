@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const ImageModel = require("../models/image");
+const { imagePath } = require('../config/config');
 
 class ImageManage {
   // 上传
@@ -26,7 +27,7 @@ class ImageManage {
         result = result.map(item => {
           return {
             id: item._id,
-            url: item.url,
+            url: /^http/.test(item.url) ? item.url : `${imagePath}${item.url}`,
             name: item.name,
             group: item.group,
             createtime: item.createtime

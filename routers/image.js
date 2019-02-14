@@ -1,12 +1,13 @@
 const md5 = require('md5');
 const image = require('../control/image');
+const { imagePath } = require('../config/config')
 
 /*
  * @Content: 文件上传(最大2M)
  * @Author: Edwin
  * @Date: 2019-01-27 15:19:31
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-01 17:26:53
+ * @Last Modified time: 2019-02-14 22:31:05
  */
 const fs = require('fs');
 const path = require('path');
@@ -55,13 +56,10 @@ Router.post('/upload', async (ctx, next) => {
   reader.pipe(upStream); // 可读流通过管道写入可写流
 
   return await image.upload(ctx, {
-    url: `/upload/${fileName}`,
+    url: `${imagePath}/upload/${fileName}`,
     group,
     name
   });
-  // return ctx.send({
-  //   path: `${imagePath}/upload/${fileName}`
-  // }, '上传成功')
 })
 
 
