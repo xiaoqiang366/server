@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const MenuModel = require('../models/menu');
 const CategoryModel = require('../models/category');
 
@@ -81,6 +82,9 @@ class Menu {
     let {
       pageNum = 1, pageSize = 10
     } = ctx.query;
+    pageNum = pageNum || 1;
+    pageSize = pageSize || 10;
+
     const maxNum = await MenuModel.estimatedDocumentCount((err, num) =>
       err ? console.log(err) : num
     )
@@ -93,14 +97,14 @@ class Menu {
       .then(data => {
         return ctx.send({
           list: data,
-          totalPage: maxNum
+          total: maxNum
         })
       })
       .catch(err => {
         if (err && !err.reason) {
           return ctx.send({
             list: [],
-            totalPage: 0
+            total: 0
           })
         }
         return ctx.sendError('000002');
@@ -108,32 +112,38 @@ class Menu {
   }
 
   // 获取所有菜列表
-  async getListByCid(ctx, next) {
+  async getlist(ctx, next) {
     let {
       cid,
       pageNum = 1,
       pageSize = 10
     } = ctx.request.query;
+    pageNum = pageNum || 1;
+    pageSize = pageSize || 10;
 
-    if (!cid) return ctx.sendError(-1, '缺少必填参数');
-    const maxNum = await MenuModel.find({ cid }).count();
+    if (cid && !mongoose.Types.ObjectId.isValid(cid)) {
+      return ctx.sendError('000002', '分类id错误');;
+    }
+
+    const maxNum = await MenuModel.find(cid ? { cid } : {}).count();
+
     pageNum--;
     pageNum = parseInt(pageNum)
     pageSize = parseInt(pageSize)
-    await MenuModel.find({ cid })
+    await MenuModel.find(cid ? { cid } : {})
       .skip(pageNum * pageSize)
       .limit(pageSize)
       .then(data => {
         return ctx.send({
           list: data,
-          totalPage: maxNum
+          total: maxNum
         })
       }).catch(err => {
         console.log(err);
         if (err && !err.reason) {
           return ctx.send({
             list: [],
-            totalPage: 0
+            total: 0
           })
         }
         return ctx.sendError('000002');

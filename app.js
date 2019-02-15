@@ -38,6 +38,7 @@ app
       /^\/user\/reg/i,
       /^\/category\/list\/?$/i,
       /^\/menu\/allList\/?$/i,
+      /^\/menu\/getlist\/?$/i,
       /^\/menu\/list\/?$/i,
       /^\/menu\/getListByCid\/?$/i,
       /^\/apidoc/i,

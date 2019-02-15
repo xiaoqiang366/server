@@ -7,7 +7,7 @@ const { imagePath } = require('../config/config')
  * @Author: Edwin
  * @Date: 2019-01-27 15:19:31
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-14 22:31:05
+ * @Last Modified time: 2019-02-14 22:45:16
  */
 const fs = require('fs');
 const path = require('path');
@@ -65,7 +65,7 @@ Router.post('/upload', async (ctx, next) => {
 
 /**
  * @api {get} /image/query?group=default&pageNum=1&pageSize=10 图片分组查询
- * @apiName query
+ * @apiName imageQuery
  * @apiGroup Image
  * @apiParam (params) {String} group = 'default' 图片分组名称
  * @apiParam (params) {Number} [pageNum = 1]  页数
@@ -93,7 +93,7 @@ Router.get('/query', image.query)
 
 /**
  * @api {post} /image/delete 图片删除
- * @apiName query
+ * @apiName imageDelete
  * @apiGroup Image
  * @apiParam (params) {String} id 图片id
  * @apiSuccessExample Success:

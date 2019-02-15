@@ -3,7 +3,7 @@
  * @Author: Edwin
  * @Date: 2019-01-24 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-01 19:39:54
+ * @Last Modified time: 2019-02-15 21:03:39
  */
 const Router = require('koa-router')();
 const Menu = require('../control/menu');
@@ -44,51 +44,14 @@ const Menu = require('../control/menu');
  */
 Router.post("/add", Menu.add)
 
-/**
- * @api {get} /menu/allList?pageNum=2&pageSize=2 获取所有菜品
- * @apiName menuList
- * @apiGroup Menu
- * @apiDescription 所有菜品查询
- * @apiParam (params) {Number} [pageNum = 1]  页数
- * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
- * @apiSuccessExample 成功
- * {
-        "code": 1,
-        "data": {
-            "list": [
-                {
-                    "_id": "5c504afc94bcc35c1b9fe838",
-                    "name": "清炒土豆丝",
-                    "cid": "5c4faaa8a1068c20dd01feb7",
-                    "price": "60",
-                    "desc": "暂无描述",
-                    "img": "http://127.0.0.1:3030/img/tudou.jpg",
-                    "updateTime": "2019-01-29T12:45:48.847Z"
-                },
-                {
-                    "_id": "5c504b4c94bcc35c1b9fe839",
-                    "name": "辣的跳",
-                    "cid": "5c4faaa8a1068c20dd01feb7",
-                    "price": "30",
-                    "desc": "特别辣",
-                    "img": "http://127.0.0.1:3030/img/lalala.jpg",
-                    "updateTime": "2019-01-29T12:47:08.459Z"
-                }
-            ],
-            "totalPage": 4
-        },
-        "msg": "请求成功"
-    }
- *
- */
-Router.get("/allList", Menu.allList);
 Router.get("/list", Menu.list);
 
 /**
- * @api {get} /menu/getListByCid?cid=5c4faaa8a1068c20dd01feb7&pageNum=1&pageSize=2 根据cid获取菜品
+ * @api {get} /menu/getlist?cid=5c4faaa8a1068c20dd01feb7&pageNum=1&pageSize=2 菜品列表查询
  * @apiName getListByCid
  * @apiGroup Menu
  * @apiDescription 所有菜品查询
+ * @apiParam (params) {Number} [cid = '']  菜品分类
  * @apiParam (params) {Number} [pageNum = 1]  页数
  * @apiParam (params) {Number} [pageSize = 10] 每页显示条数
  * @apiSuccessExample 成功
@@ -115,13 +78,13 @@ Router.get("/list", Menu.list);
                     "updateTime": "2019-01-29T12:45:48.847Z"
                 }
             ],
-            "totalPage": 3
+            "total": 3
         },
         "msg": "请求成功"
     }
  *
  */
-Router.get("/getListByCid", Menu.getListByCid);
+Router.get("/getlist", Menu.getlist);
 
 /**
  * @api {post} /menu/delete 菜品删除
