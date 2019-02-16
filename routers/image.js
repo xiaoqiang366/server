@@ -7,7 +7,7 @@ const { imagePath } = require('../config/config')
  * @Author: Edwin
  * @Date: 2019-01-27 15:19:31
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-14 22:45:16
+ * @Last Modified time: 2019-02-16 18:51:41
  */
 const fs = require('fs');
 const path = require('path');
@@ -56,7 +56,7 @@ Router.post('/upload', async (ctx, next) => {
   reader.pipe(upStream); // 可读流通过管道写入可写流
 
   return await image.upload(ctx, {
-    url: `${imagePath}/upload/${fileName}`,
+    url: `/upload/${fileName}`,
     group,
     name
   });

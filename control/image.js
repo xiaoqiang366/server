@@ -9,7 +9,7 @@ class ImageManage {
     const result = await new ImageModel(data).save();
     return result !== null ? ctx.send({
       id: result.id,
-      url: result.url,
+      url: `${imagePath}${result.url}`,
       group: result.group,
       name: result.name
     }, '上传成功') : ctx.sendError('000002', '注册失败');
@@ -18,10 +18,12 @@ class ImageManage {
   // 图片列表查询
   async query(ctx) {
     let { group, pageSize = 10, pageNum = 1 } = ctx.request.query;
+    pageNum = pageNum || 1;
+    pageSize = pageSize || 10;
     group = group || 'default';
 
     const total = await ImageModel.find({ group }).countDocuments();
-    let result = await ImageModel.find({ group }).sort({group: 1}).skip((--pageNum) * (+pageSize)).limit(+pageSize);
+    let result = await ImageModel.find({ group }).sort({ createtime: -1 }).skip((--pageNum) * (+pageSize)).limit(+pageSize);
     if (result) {
       if (result.length > 0) {
         result = result.map(item => {
@@ -35,12 +37,12 @@ class ImageManage {
         })
         return ctx.send({
           list: result,
-          totalCount: total
+          totalCount:total
         }, '查询成功')
       }
       return ctx.send({
         list: [],
-        totalCount: total
+        totalCount: 0
       }, '查询成功')
     } else {
       return ctx.sendError('-1', '查询错误')
