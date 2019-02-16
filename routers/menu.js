@@ -3,11 +3,10 @@
  * @Author: Edwin
  * @Date: 2019-01-24 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-15 21:03:39
+ * @Last Modified time: 2019-02-16 20:50:43
  */
 const Router = require('koa-router')();
 const Menu = require('../control/menu');
-
 
 /**
  * @api {post} /menu/add 菜品添加
@@ -78,7 +77,7 @@ Router.get("/list", Menu.list);
                     "updateTime": "2019-01-29T12:45:48.847Z"
                 }
             ],
-            "total": 3
+            "totalCount": 3
         },
         "msg": "请求成功"
     }

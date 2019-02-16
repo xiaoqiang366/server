@@ -1,5 +1,6 @@
 const CategoryModel = require("../models/category");
 const MenuModel = require("../models/menu");
+const mongoose = require('mongoose');
 
 class Category {
   // 添加分类
@@ -84,17 +85,22 @@ class Category {
   async update(ctx, next) {
     const { user } = ctx.state;
     if (!user) return ctx.sendError(401, '请先登录');
-    const { id, name } = ctx.request.body;
+    const { id, name, desc } = ctx.request.body;
     if (!id || !name) return ctx.sendError(-1, '参数错误');
+    if (id && !mongoose.Types.ObjectId.isValid(id)) {
+      return ctx.sendError('000002', '分类id错误');
+    }
 
     // 添加前检查是否存在
     const result = await CategoryModel.find({ _id: id });
     if (!result || result.length === 0) return ctx.sendError(0, '当前分类不存在');
 
-    const queryResult = await CategoryModel.find({ name });
+    const queryResult = await CategoryModel.find({ name, _id: { $ne: id } });
     if (queryResult && queryResult.length > 0) return ctx.sendError(0, '当前分类已存在, 勿重复添加');
 
-    const updateResult = await CategoryModel.updateOne({ _id: id }, { name, updateTime: new Date() });
+    const updateData = { name, updateTime: new Date() };
+    if (desc) Object.assign(updateData, { desc });
+    const updateResult = await CategoryModel.updateOne({ _id: id }, updateData);
     if (updateResult) {
       ctx.send('更新成功')
     } else {

@@ -3,7 +3,7 @@
  * @Author: Edwin
  * @Date: 2019-01-24 23:18:55
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-01-26 01:13:38
+ * @Last Modified time: 2019-02-16 20:54:01
  */
 const Router = require('koa-router')();
 const user = require('../control/user');
@@ -31,8 +31,9 @@ Router.post('/reg', user.reg)
  * @api {post} /user/update 用户修改
  * @apiName update
  * @apiGroup User
- * @apiParam (params) {String} username 用户名 
+ * @apiParam (params) {String} username 用户名
  * @apiParam (params) {String} password 用户密码
+ * @apiParam (params) {String} avatar 用户头像URL
  * @apiParam (params) {String} id 被修改人id
  * @apiSuccessExample Success-Response:
  * {

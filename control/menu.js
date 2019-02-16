@@ -97,14 +97,14 @@ class Menu {
       .then(data => {
         return ctx.send({
           list: data,
-          total: maxNum
+          totalCount: maxNum
         })
       })
       .catch(err => {
         if (err && !err.reason) {
           return ctx.send({
             list: [],
-            total: 0
+            totalCount: 0
           })
         }
         return ctx.sendError('000002');

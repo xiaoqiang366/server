@@ -25,6 +25,6 @@ function getIp() {
       break
     }
   }
-  if (ipStr === '172.16.176.245') ipStr = 'http://116.62.147.91';
+  if (ipStr === '172.16.176.245') ipStr = '116.62.147.91';
   return ipStr
 }

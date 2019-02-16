@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const ImageModel = require("../models/image");
 const { imagePath } = require('../config/config');
 
@@ -55,6 +56,10 @@ class ImageManage {
     if (user) {
       const { id } = ctx.request.body;
       if (!id) return ctx.sendError('0', '参数错误');
+      if (id && !mongoose.Types.ObjectId.isValid(id)) {
+        return ctx.sendError('000002', '图片id错误');
+      }
+
       const queryRes = await ImageModel.findById(id);
       if (!queryRes) {
         return ctx.sendError('0', '当前图片不存在');
