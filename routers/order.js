@@ -3,7 +3,7 @@
  * @Author: zhf
  * @Date: 2019-01-29 23:44:32
  * @Last Modified by: Edwin
- * @Last Modified time: 2019-02-01 12:50:20
+ * @Last Modified time: 2019-02-18 22:49:12
  */
 const Router = require('koa-router')();
 const Order = require('../control/order');
@@ -62,7 +62,7 @@ Router.post("/add", Order.add)
         "code": 1,
         "data": {
             "list": [
-               
+
             ],
             "totalPage": 4
         },
@@ -83,7 +83,7 @@ Router.get("/clist", Order.clist);
         "code": 1,
         "data": {
             "list": [
-               
+
             ],
             "totalPage": 4
         },
@@ -102,14 +102,18 @@ Router.post("/update", Order.update)
 
 //
 /**
- * @api {post} /order/lists 根据订单号获取订单详情
+ * @api {post} /order/lists 获取订单列表
  * @apiName OrderLists
  * @apiGroup Order
- * @apiDescription 订单详情列表
- * @apiParam (params) {Array} id  id数组
+ * @apiDescription 根据订单号查询订单详情
+ * @apiParam (params) {Array} orderNumbers  订单号数组
+ * @apiParamExample {json} 请求参数:
+ * {
+ *   "orderNumbers": [1549935550183001, 1549935696825003]
+ * }
  *
  * */
-Router.post("/lists", Order.getListById)
+Router.post("/lists", Order.getLists)
 
 
 module.exports = Router;

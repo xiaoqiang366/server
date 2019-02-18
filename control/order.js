@@ -154,17 +154,16 @@ class Order {
 
     }
 
-    // 根据订单号获取订单详情列表
-    async getListById(ctx) {
-        let { id } = ctx.request.body;
-        // 参数格式判断 ['5c6ab8372bd11d7fa95b4288', '5c6ab96a2bd11d7fa95b4289']
-        if (!id || !Array.isArray(id)) {
+    // 根据订单号获取订单列表
+    async getLists(ctx) {
+        let { orderNumbers } = ctx.request.body;
+        // 参数需为数组
+        if (!orderNumbers || !Array.isArray(orderNumbers)) {
             ctx.sendError('参数错误');
             return;
         }
-        const resData = await Promise.all( id.map(_id => {
-            if (!mongoose.Types.ObjectId.isValid(_id)) return {}; // 判断id是否合法
-            return OrderModel.findById(_id);
+        const resData = await Promise.all( orderNumbers.map(orderNum => {
+            return OrderModel.findOne({ orderNum })
         }));
         ctx.send(resData, '请求成功');
 
