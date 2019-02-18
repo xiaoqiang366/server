@@ -99,4 +99,17 @@ Router.get("/hlist", Order.hlist);
 
 Router.post("/update", Order.update)
 
+
+//
+/**
+ * @api {post} /order/lists 根据订单号获取订单详情
+ * @apiName OrderLists
+ * @apiGroup Order
+ * @apiDescription 订单详情列表
+ * @apiParam (params) {Array} id  id数组
+ *
+ * */
+Router.post("/lists", Order.getListById)
+
+
 module.exports = Router;

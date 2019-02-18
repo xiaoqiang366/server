@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const OrderModel = require("../models/order");
 const MenuModel = require('../models/menu');
 const OrderListModel = require('../models/orderList');
@@ -153,6 +154,21 @@ class Order {
 
     }
 
+    // 根据订单号获取订单详情列表
+    async getListById(ctx) {
+        let { id } = ctx.request.body;
+        // 参数格式判断 ['5c6ab8372bd11d7fa95b4288', '5c6ab96a2bd11d7fa95b4289']
+        if (!id || !Array.isArray(id)) {
+            ctx.sendError('参数错误');
+            return;
+        }
+        const resData = await Promise.all( id.map(_id => {
+            if (!mongoose.Types.ObjectId.isValid(_id)) return {}; // 判断id是否合法
+            return OrderModel.findById(_id);
+        }));
+        ctx.send(resData, '请求成功');
+
+    }
 }
 
 module.exports = new Order();
