@@ -35,7 +35,7 @@ app
   }).unless({
     path: [
       /^\/user\/login\/?$/i,
-      /^\/user\/reg/i,
+      // /^\/user\/reg/i,
       /^\/category\/list\/?$/i,
       /^\/menu\/allList\/?$/i,
       /^\/menu\/getlist\/?$/i,

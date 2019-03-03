@@ -61,14 +61,14 @@ class User {
       const {
         userId,
       } = ctx.request.body;
-      if (role == 0) {
-        await UserModel.findById(userId)
-          .then(data => data.remove())
-          .catch(err => {
-            return ctx.sendError(0, '删除失败，服务器错误');
-          })
-        return ctx.send('删除成功');
-      }
+
+      await UserModel.findById(userId)
+        .then(data => data.remove())
+        .catch(err => {
+          return ctx.sendError(0, '删除失败，服务器错误');
+        })
+      return ctx.send('删除成功');
+
     } else {
       return ctx.sendError(0, '没有权限');
     }
