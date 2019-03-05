@@ -73,7 +73,7 @@ class Order {
                 }
             });
         });
-        ctx.send('操作成功')
+        ctx.send(orderNum)
     }
     // 后台管理更新订单状态
     async update(ctx) {
@@ -162,7 +162,7 @@ class Order {
             ctx.sendError('参数错误');
             return;
         }
-        const resData = await Promise.all( orderNumbers.map(orderNum => {
+        const resData = await Promise.all(orderNumbers.map(orderNum => {
             return OrderModel.findOne({ orderNum })
         }));
         ctx.send(resData, '请求成功');

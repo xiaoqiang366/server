@@ -51,6 +51,7 @@ app
       /^\/image\/query/i,
       /^\/table\/list/i,
       /^\/order\/add/i,
+      /^\/order\/lists/i,
       /^\/socket.io/i,
     ]
   })) // token处理
